@@ -47,18 +47,20 @@ At the top of every script you will want to have the following lines added:
 
 ```typescript
 /**
- * @NAPIVersion 2.0
+ * @NAPIVersion 2.1
  * @NScriptType ClientScript
  */
 
-import type {EntryPoints} from 'N/types';
+import type { EntryPoints } from "N/types";
 ```
 
 `N/types` and `EntryPoints` isn't actually in the NetSuite API, but it is something that is included with this library to give you type definitons for your entry point functions. For example:
 
 ```typescript
-import type {EntryPoints} from 'N/types';
-export let pageInit: EntryPoints.Client.pageInit = (context: EntryPoints.Client.pageInitContext) => {
+import type { EntryPoints } from "N/types";
+export const pageInit: EntryPoints.Client.pageInit = (
+  context: EntryPoints.Client.pageInitContext,
+) => {
   //Your IDE will now autocomplete from the context argument. For instance use this to access context.mode and context.currentRecord in this pageInit example
 };
 ```
@@ -73,12 +75,12 @@ Full example for a User Event Script might look something like this:
 
 ```typescript
 /**
- * @NAPIVersion 2.0
+ * @NAPIVersion 2.1
  * @NScriptType UserEventScript
  */
 
-import type {EntryPoints} from 'N/types';
-import * as log from 'N/log';
+import type { EntryPoints } from "N/types";
+import * as log from "N/log";
 
 export let beforeSubmit: EntryPoints.UserEvent.beforeSubmit = (context: EntryPoints.UserEvent.beforeSubmitContext) => {
   let x = context.newRecord.getValue({fieldId: 'companyname'});
@@ -90,12 +92,12 @@ export let beforeSubmit: EntryPoints.UserEvent.beforeSubmit = (context: EntryPoi
 
 ```typescript
 /**
- * @NApiVersion 2.x
+ * @NApiVersion 2.1
  * @NScriptType Suitelet
  */
 
-import type {EntryPoints} from 'N/types';
-import * as record from 'N/record';
+import type { EntryPoints } from "N/types";
+import * as record from "N/record";
 
 export let onRequest: EntryPoints.Suitelet.onRequest = (context: EntryPoints.Suitelet.onRequestContext) => {
   let folder = record.load({type: 'folder', id: 36464});
