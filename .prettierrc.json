@@ -1,0 +1,15 @@
+{
+  "singleQuote": true,
+  "tabWidth": 2,
+  "trailingComma": "es5",
+  "bracketSpacing": false,
+  "printWidth": 120,
+  "overrides": [
+    {
+      "files": "**/*.js",
+      "options": {
+        "tabWidth": 4
+      }
+    }
+  ]
+}
