@@ -1,4 +1,4 @@
-# SuiteScript 2.0 Typings
+# SuiteScript 2.1 Typings
 
 [![Build Status](https://travis-ci.org/headintheclouddev/typings-suitescript-2.0.png?branch=master)](https://travis-ci.org/headintheclouddev/typings-suitescript-2.0)
 [![devDependencies Status](https://david-dm.org/headintheclouddev/typings-suitescript-2.0/dev-status.svg)](https://david-dm.org/headintheclouddev/typings-suitescript-2.0?type=dev)
@@ -47,27 +47,25 @@ At the top of every script you will want to have the following lines added:
 
 ```typescript
 /**
- * @NAPIVersion 2.1
+ * @NApiVersion 2.1
  * @NScriptType ClientScript
  */
 
-import type { EntryPoints } from "N/types";
+import type {EntryPoints} from 'N/types';
 ```
 
 `N/types` and `EntryPoints` isn't actually in the NetSuite API, but it is something that is included with this library to give you type definitons for your entry point functions. For example:
 
 ```typescript
-import type { EntryPoints } from "N/types";
-export const pageInit: EntryPoints.Client.pageInit = (
-  context: EntryPoints.Client.pageInitContext,
-) => {
+import type {EntryPoints} from 'N/types';
+export const pageInit: EntryPoints.Client.pageInit = (context: EntryPoints.Client.pageInitContext) => {
   //Your IDE will now autocomplete from the context argument. For instance use this to access context.mode and context.currentRecord in this pageInit example
 };
 ```
 
 Notice that we are exporting the function `pageInit` that will need to be referenced in the NetSuite Client Script record as an entry point.
 
-Then if you're using a TypeScript-aware text editor you'll get syntax highlighting, error detection, embedded apidocs, type-cheking, and autocomplete for all of the SuiteScript 2.0 modules and types. For instance the free [VSCode](https://code.visualstudio.com/) from Microsoft will work out of the box.
+Then if you're using a TypeScript-aware text editor you'll get syntax highlighting, error detection, embedded apidocs, type-checking, and autocomplete for all of the SuiteScript 2.0 modules and types. For instance the free [VSCode](https://code.visualstudio.com/) from Microsoft will work out of the box.
 
 ## User Event Example
 
@@ -75,15 +73,17 @@ Full example for a User Event Script might look something like this:
 
 ```typescript
 /**
- * @NAPIVersion 2.1
+ * @NApiVersion 2.1
  * @NScriptType UserEventScript
  */
 
-import type { EntryPoints } from "N/types";
-import * as log from "N/log";
+import type {EntryPoints} from 'N/types';
+import * as log from 'N/log';
 
-export let beforeSubmit: EntryPoints.UserEvent.beforeSubmit = (context: EntryPoints.UserEvent.beforeSubmitContext) => {
-  let x = context.newRecord.getValue({fieldId: 'companyname'});
+export const beforeSubmit: EntryPoints.UserEvent.beforeSubmit = (
+  context: EntryPoints.UserEvent.beforeSubmitContext
+) => {
+  const x = context.newRecord.getValue({fieldId: 'companyname'});
   log.audit('value', `companyname is: ${x}`);
 };
 ```
@@ -96,12 +96,12 @@ export let beforeSubmit: EntryPoints.UserEvent.beforeSubmit = (context: EntryPoi
  * @NScriptType Suitelet
  */
 
-import type { EntryPoints } from "N/types";
-import * as record from "N/record";
+import type {EntryPoints} from 'N/types';
+import * as record from 'N/record';
 
-export let onRequest: EntryPoints.Suitelet.onRequest = (context: EntryPoints.Suitelet.onRequestContext) => {
-  let folder = record.load({type: 'folder', id: 36464});
-  let allfields = folder.getFields().join(', ');
+export const onRequest: EntryPoints.Suitelet.onRequest = (context: EntryPoints.Suitelet.onRequestContext) => {
+  const folder = record.load({type: 'folder', id: 36464});
+  const allfields = folder.getFields().join(', ');
   context.response.write(`<br>all fields: ${allfields}`);
 };
 ```
